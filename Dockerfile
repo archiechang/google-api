@@ -13,22 +13,27 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # 安装 Python 工具
-RUN pip install --no-cache-dir \
-    black \
-    pylint \
-    pytest \
-    ipykernel
+# RUN pip install --no-cache-dir \
+#     black \
+#     pylint \
+#     pytest \
+#     ipykernel
 
-# 创建非 root 用户
-ARG USERNAME=vscode
-ARG USER_UID=1000
-ARG USER_GID=$USER_UID
+# 安装 requirements.txt 中的所有包
+COPY requirements.txt .
+RUN pip install --no-cache-dir --upgrade pip
+RUN pip install --no-cache-dir setuptools
+RUN pip install --no-cache-dir -r requirements.txt
+# # 创建非 root 用户
+# ARG USERNAME=vscode
+# ARG USER_UID=1000
+# ARG USER_GID=$USER_UID
 
-RUN groupadd --gid $USER_GID $USERNAME \
-    && useradd --uid $USER_UID --gid $USER_GID -m $USERNAME
+# # RUN groupadd --gid $USER_GID $USERNAME \
+# #     && useradd --uid $USER_UID --gid $USER_GID -m $USERNAME
 
 # 设置工作目录
 WORKDIR /workspace
 
-# 切换到非 root 用户
-USER $USERNAME
+# # 切换到非 root 用户
+# USER $USERNAME

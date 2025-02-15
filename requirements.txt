@@ -3,5 +3,6 @@ pylint==3.0.3
 pytest==7.4.3
 jupyter==1.0.0
 requests==2.31.0
-pandas==2.1.4
-numpy==1.26.2
+slack_sdk==3.34.0
+python-dotenv==1.0.0
+pyAesCrypt==6.1.1

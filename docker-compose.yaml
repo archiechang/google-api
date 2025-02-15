@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ..:/workspace:cached
-      - ~/.ssh:/home/vscode/.ssh:ro  # SSH 密钥挂载（如果需要）
+      # - C:\Users\ruobi\.ssh:/home/vscode/.ssh:ro  # SSH 密钥挂载（如果需要）
       
     # 防止容器自动退出
     command: sleep infinity
@@ -23,32 +23,34 @@ services:
       - "8888:8888"  # Jupyter Notebook
       
     # 开发工具需要的额外功能
-    init: true
-    cap_add:
-      - SYS_PTRACE
-    security_opt:
-      - seccomp:unconfined
+    # init: true
+    # cap_add:
+    #   - SYS_PTRACE
+    # security_opt:
+    #   - seccomp:unconfined
+    env_file:
+      - .env
 
-  # PostgreSQL 数据库服务
-  db:
-    image: postgres:16
-    environment:
-      - POSTGRES_DB=devdb
-      - POSTGRES_USER=devuser
-      - POSTGRES_PASSWORD=devpass
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
+#   # PostgreSQL 数据库服务
+#   db:
+#     image: postgres:16
+#     environment:
+#       - POSTGRES_DB=devdb
+#       - POSTGRES_USER=devuser
+#       - POSTGRES_PASSWORD=devpass
+#     volumes:
+#       - postgres_data:/var/lib/postgresql/data
+#     ports:
+#       - "5432:5432"
 
-  # Redis 缓存服务
-  redis:
-    image: redis:7
-    ports:
-      - "6379:6379"
-    volumes:
-      - redis_data:/data
+#   # Redis 缓存服务
+#   redis:
+#     image: redis:7
+#     ports:
+#       - "6379:6379"
+#     volumes:
+#       - redis_data:/data
 
-volumes:
-  postgres_data:
-  redis_data:
+# volumes:
+#   postgres_data:
+#   redis_data:
