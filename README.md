@@ -1,2 +1,2 @@
-# google-api
-GoogleAPI
+# langchain
+langchain study

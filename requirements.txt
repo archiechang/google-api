@@ -1,0 +1,7 @@
+black==23.12.1
+pylint==3.0.3
+pytest==7.4.3
+jupyter==1.0.0
+requests==2.31.0
+pandas==2.1.4
+numpy==1.26.2
